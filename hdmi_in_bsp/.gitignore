@@ -1,0 +1,10 @@
+# Blacklist everything
+/*
+
+# whitelist the necessary files and folders, this gets everything from inside them too
+!.gitignore
+!system.mss
+!Makefile
+!.project
+!.cproject
+!.sdkproject
