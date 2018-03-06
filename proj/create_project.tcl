@@ -117,42 +117,42 @@ puts "INFO: Project created:$proj_name"
 
 # Uncomment this if building the block diagram from a tcl
 # Create block design
-# source $origin_dir/src/bd/system.tcl
+source $origin_dir/src/bd/system.tcl
 
 # Uncomment this block if importing an existing block diagram project
 # Import block design if it exists
-set bd_list [glob -nocomplain $src_dir/bd/*/*.bd]
-if {[llength $bd_list] != 0} {
-  add_files -norecurse -quiet -fileset sources_1 [glob -nocomplain $src_dir/bd/*/*.bd]
-  open_bd_design [glob -nocomplain $src_dir/bd/*/*.bd]
-  set design_name [get_bd_designs]
-  set file "$origin_dir/src/bd/$design_name/$design_name.bd"
-  set file [file normalize $file]
-  set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
-  if { ![get_property "is_locked" $file_obj] } {
-    set_property "synth_checkpoint_mode" "Hierarchical" $file_obj
-  }
-
-  # Generate the wrapper 
-  set design_name [get_bd_designs]
-  make_wrapper -files [get_files $design_name.bd] -top -force -quiet -import
-  
-}
-
-set sdk_dir $origin_dir/sdk
-
-set hw_list [glob -nocomplain $sdk_dir/*hw_platform*]
-if {[llength $hw_list] != 0} {
-  foreach hw_plat $hw_list {
-	file delete -force $hw_plat
-  }
-}
-
-set sdk_list [glob -nocomplain $sdk_dir/*]
-set sdk_list [lsearch -inline -all -not -exact $sdk_list "../sdk/.keep"]
-if {[llength $sdk_list] != 0} {
-	exec xsct -eval "setws -switch ../sdk; importproject ../sdk"
-}
-# 
-# 
-# puts "INFO: Block design ready: $design_name.bd"
+#set bd_list [glob -nocomplain $src_dir/bd/*/*.bd]
+#if {[llength $bd_list] != 0} {
+#  add_files -norecurse -quiet -fileset sources_1 [glob -nocomplain $src_dir/bd/*/*.bd]
+#  open_bd_design [glob -nocomplain $src_dir/bd/*/*.bd]
+#  set design_name [get_bd_designs]
+#  set file "$origin_dir/src/bd/$design_name/$design_name.bd"
+#  set file [file normalize $file]
+#  set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
+#  if { ![get_property "is_locked" $file_obj] } {
+#    set_property "synth_checkpoint_mode" "Hierarchical" $file_obj
+#  }
+#
+#  # Generate the wrapper 
+#  set design_name [get_bd_designs]
+#  make_wrapper -files [get_files $design_name.bd] -top -force -quiet -import
+#  
+#}
+#
+#set sdk_dir $origin_dir/sdk
+#
+#set hw_list [glob -nocomplain $sdk_dir/*hw_platform*]
+#if {[llength $hw_list] != 0} {
+#  foreach hw_plat $hw_list {
+#	file delete -force $hw_plat
+#  }
+#}
+#
+#set sdk_list [glob -nocomplain $sdk_dir/*]
+#set sdk_list [lsearch -inline -all -not -exact $sdk_list "../sdk/.keep"]
+#if {[llength $sdk_list] != 0} {
+#	exec xsct -eval "setws -switch ../sdk; importproject ../sdk"
+#}
+## 
+## 
+## puts "INFO: Block design ready: $design_name.bd"
